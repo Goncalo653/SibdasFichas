@@ -6,7 +6,7 @@
     /* Remove preenchimentos internos padrão */
     box-sizing: border-box;
     /* Inclui bordas e preenchimento no cálculo da largura/altura */
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     /* Define a fonte principal usada no site */
 }
 
