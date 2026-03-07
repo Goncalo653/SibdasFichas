@@ -13,6 +13,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
+    <!-- Font Awesome (local) -->
+    <link rel="stylesheet" href="assets/fontawesome/all.min.css">
+
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
@@ -55,27 +58,57 @@
     </section>
 
     <!-- Seção "Conteudo da pagina - Equipa" -->
-    <section class="container-texto-generico" id="nossa-equipa">
-        <article>
-            <h2>Equipa</h2>
-            <p>Conhece os profissionais qualificados do ISEP Ginásio.</p>
-        </article>
+    <section id="nossa-equipa">
+        <h2>A Nossa Equipa</h2>
+        <div class="equipa-container">
+            <div class="pessoa">
+                <img src="https://picsum.photos/150" alt="Treinador 1">
+                <h3>João Silva</h3>
+                <p>Treinador Personalizado</p>
+            </div>
+            <div class="pessoa">
+                <img src="https://picsum.photos/200" alt="Fisioterapeuta 1">
+                <h3>Ana Costa</h3>
+                <p>Fisioterapeuta</p>
+            </div>
+            <div class="pessoa">
+                <img src="https://picsum.photos/180" alt="Nutricionista 1">
+                <h3>Mariana Santos</h3>
+                <p>Nutricionista</p>
+            </div>
+        </div>
     </section>
 
     <!-- Seção "Conteudo da pagina-Serviços" -->
-    <section class="container-texto-generico" id="servicos">
-        <article>
-            <h2>Serviços</h2>
-            <p>Venha conhecer todos os serviços disponibilizados do ISEP Ginásio.</p>
-        </article>
-    </section>
-
-    <!-- Seção "Conteudo da pagina-Aulas de grupo" -->
-    <section class="container-texto-generico" id="aula-grupo">
-        <article>
-            <h2>Mapa de Aulas</h2>
-            <p>Conhece as aulas de grupo de tens disponível no ginásio</p>
-        </article>
+    <section id="servicos">
+        <h2>Nossos Serviços</h2>
+        <div class="servicos-container">
+            <div class="servico">
+                <i class="fa-solid fa-dumbbell fa-3x"></i>
+                <h3>Treino Personalizado</h3>
+                <p>Programas de treino individualizados para atingir seus objetivos.</p>
+            </div>
+            <div class="servico">
+                <i class="fa-solid fa-people-group fa-3x"></i>
+                <h3>Aulas de Grupo</h3>
+                <p>Diversas modalidades para todos os níveis de condicionamento físico.</p>
+            </div>
+            <div class="servico">
+                <i class="fa-solid fa-person-praying fa-3x"></i>
+                <h3>Pilates</h3>
+                <p>Fortalecimento do core e melhora da postura.</p>
+            </div>
+            <div class="servico">
+                <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                <h3>Fisioterapia</h3>
+                <p>Recuperação e prevenção de lesões.</p>
+            </div>
+            <div class="servico">
+                <i class="fa-solid fa-apple-whole fa-3x"></i>
+                <h3>Nutrição</h3>
+                <p>Planos alimentares personalizados para otimizar seus resultados.</p>
+            </div>
+        </div>
     </section>
 
     <!-- Seção "Conteudo da pagina-Preçário" -->
@@ -102,6 +135,38 @@
                 Sunt, maiores! Pariatur, repudiandae! Omnis, nam! Vel, veritatis!</p>
         </article>
     </section>
+
+<!-- Seção "Conteudo da pagina-Aulas de Grupo" -->
+<section id="aula-grupo">
+    <h2>Modalidades de Aulas de Grupo</h2>
+    <div class="servicos-container">
+        <div class="servico">
+            <i class="fas fa-child fa-3x"></i>
+            <h3>Pilates</h3>
+            <p>Programas de treino individualizados para atingir seus objetivos.</p>
+        </div>
+        <div class="servico">
+            <i class="fas fa-running fa-3x"></i>
+            <h3>Clube de Corrida</h3>
+            <p>Diversas modalidades para todos os níveis de condicionamento físico.</p>
+        </div>
+        <div class="servico">
+            <i class="fas fa-dumbbell fa-3x"></i>
+            <h3>CrossFit</h3>
+            <p>Fortalecimento do core e melhora da postura.</p>
+        </div>
+        <div class="servico">
+            <i class="fas fa-music fa-3x"></i>
+            <h3>Zumba</h3>
+            <p>Recuperação e prevenção de lesões.</p>
+        </div>
+        <div class="servico">
+            <i class="fas fa-shoe-prints fa-3x"></i>
+            <h3>Step</h3>
+            <p>Planos alimentares personalizados para otimizar seus resultados.</p>
+        </div>
+    </div>
+</section>
 
     <!-- Rodapé -->
     <footer class="footer-container">
