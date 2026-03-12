@@ -85,7 +85,7 @@ $ligacao = null;
                                             <a href="detalhes.php" class="btn btn-sm btn-outline-primary me-1">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
-                                            <a href="editar.php" class="btn btn-sm btn-outline-warning me-1">
+                                            <a href="editar.php?id_cliente=<?= ($cliente->id ) ?>" class="btn btn-sm btn-outline-warning me-1">
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </a>
                                             <a href="apagar.php" class="btn btn-sm btn-outline-danger">
