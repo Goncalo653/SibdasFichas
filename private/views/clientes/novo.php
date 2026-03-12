@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../includes/funcoes.php';
+require_once __DIR__ . '/../../includes/validacoes.php';
 redirect_if_not_logged();
 ?>
 
@@ -68,21 +69,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /* ---------------------------
     VALIDAÇÕES
     ----------------------------*/
-
+    /*
     if (empty($nome)) {
         $erros[] = "O campo Nome é obrigatório.";
     } elseif (preg_match('/\d/', $nome)) {
         $erros[] = "O campo Nome não pode conter números.";
     }
-
-    if (empty($morada)) {
-        $erros[] = "O campo Morada é obrigatório.";
-    }
-
-    if (empty($cp)) {
-        $erros[] = "O campo Código Postal é obrigatório.";
-    } elseif (!preg_match('/^\d{4}-\d{3}$/', $cp)) {
-        $erros[] = "Código Postal inválido (ex: 4000-007).";
+*/
+    $erros = validar_nome($nome);
+    $erros = array_merge($erros, validar_morada($morada));
+    $erros = array_merge($erros, validar_cp($cp));
+    $erros = array_merge($erros, validar_cidade($cidade));
+    $erros = array_merge($erros, validar_telefone($telefone));
+    $erros = array_merge($erros, validar_email($email));
+    $erros = array_merge($erros, valida_sexo($sexo));
+    $erros = array_merge($erros, validar_data_nascimento($dnasc));
+    $erros = array_merge($erros, validar_estado_civil($estado));
+    $erros = array_merge($erros, validar_sistema_saude($sistema));
+    $erros = array_merge($erros, validar_profissao($profissao));
     }
 
     if (empty($cidade)) {
@@ -178,7 +182,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $ligacao = null;
     }
-}
 ?>
 
 <?php include '../../includes/nav.php'; ?>
