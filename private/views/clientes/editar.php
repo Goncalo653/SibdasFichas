@@ -78,14 +78,14 @@ $ligacao = null;
                                 <div class="row mb-3">
                                     <div class="col-12">
                                         <label for="texto_nome" class="form-label">Nome Completo</label>
-                                        <input type="text" class="form-control" id="texto_nome" name="nome_cliente" value="Ana Beatriz Ferreira" required>
+                                        <input type="text" class="form-control" id="texto_nome" name="nome_cliente" value="<?= htmlspecialchars($cliente->nome) ?>" required>
                                     </div>
                                 </div>
                                 
                                 <div class="row mb-3">
                                     <div class="col-12">
                                         <label for="texto_endereco" class="form-label">Morada <small>(NºPorta, Andar)</small></label>
-                                        <input type="text" class="form-control" id="texto_endereco" name="morada_cliente" value="Rua das Flores, nº12, 2º Esq.">
+                                        <input type="text" class="form-control" id="texto_endereco" name="morada_cliente" value="<?= htmlspecialchars($cliente->morada) ?>" required>
                                     </div>
                                 </div>
                                 
@@ -96,15 +96,15 @@ $ligacao = null;
                                     </div>
                                     <div class="col-md-3">
                                         <label for="texto_cidade" class="form-label">Cidade</label>
-                                        <input type="text" class="form-control" id="texto_cidade" name="cid_cliente" value="Porto" required>
+                                        <input type="text" class="form-control" id="texto_cidade" name="cid_cliente" value="<?= htmlspecialchars($cliente->cidade) ?>" required>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="texto_cliente" class="form-label">Telefone</label>
-                                        <input type="text" class="form-control" id="texto_cliente" name="tel_cliente" value="912345678" required>
+                                        <input type="text" class="form-control" id="texto_cliente" name="tel_cliente" value="<?= htmlspecialchars($cliente->telefone) ?>" required>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="texto_email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="texto_email" name="email_cliente" value="ana.ferreira@example.com" required>
+                                        <input type="email" class="form-control" id="texto_email" name="email_cliente" value="<?= htmlspecialchars($cliente->email) ?>" required>
                                     </div>
                                 </div>
                                 
@@ -113,18 +113,18 @@ $ligacao = null;
                                         <label class="form-label">Sexo</label>
                                         <div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="radio_gender" id="radio_m" value="m">
+                                                <input class="form-check-input" type="radio" name="radio_gender" id="radio_m" value="m" <?= $cliente->sexo == 'm' ? 'checked' : '' ?>>
                                                 <label class="form-check-label" for="radio_m">Masculino</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="radio_gender" id="radio_f" value="f" checked>
+                                                <input class="form-check-input" type="radio" name="radio_gender" id="radio_f" value="f" <?= $cliente->sexo == 'f' ? 'checked' : '' ?>>
                                                 <label class="form-check-label" for="radio_f">Feminino</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="texto_dnasc" class="form-label">Data de nascimento</label>
-                                        <input type="text" class="form-control" id="texto_dnasc" name="dnasc_cliente" value="1990-07-15" required>
+                                        <input type="text" class="form-control" id="texto_dnasc" name="dnasc_cliente" value="<?= htmlspecialchars($cliente->data_nascimento) ?>" required>
                                     </div>
                                 </div>
                                 
@@ -140,7 +140,7 @@ $ligacao = null;
                                     </div>
                                     <div class="col-md-4">
                                         <label for="texto_SSaude" class="form-label">Sistema de Saúde</label>
-                                        <input type="text" class="form-control" id="texto_SSaude" name="campo_opcao" list="sistemasaude" value="ADSE">
+                                        <input type="text" class="form-control" id="texto_SSaude" name="campo_opcao" list="sistemasaude" value="<?= htmlspecialchars($cliente->sistema_saude) ?>"list="sistemasaude">
                                         <datalist id="sistemasaude">
                                             <option value="SNS">
                                             <option value="ADSE">
