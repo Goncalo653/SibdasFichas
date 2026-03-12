@@ -23,12 +23,17 @@ require_once __DIR__ . '/../../config/config.php';
         rel="stylesheet" />
     <!-- Font Awesome (ícones) -->
     <link rel="stylesheet" href="/isep-ginasio/private/assets/fontawesome/all.min.css">
-    
+
     <!-- jQuery -->
     <script src="/isep-ginasio/private/assets/jquery/jquery-3.6.0.min.js"></script>
     <!-- DataTables CSS + JS -->
     <link rel="stylesheet" href="/isep-ginasio/private/assets/datatables/datatables.min.css">
     <script src="/isep-ginasio/private/assets/datatables/datatables.min.js"></script>
+
+    <!-- CSS do Flatpickr -->
+    <link rel="stylesheet" href="/isep-ginasio/private/assets/flatpickr/flatpickr.min.css">
+    <!-- JS do Flatpickr -->
+    <script src="/isep-ginasio/private/assets/flatpickr/flatpickr.js"></script>
 </head>
 
 <body>
