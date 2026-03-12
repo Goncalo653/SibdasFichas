@@ -1,28 +1,65 @@
 <?php
-// --------------------------------------------------------------------
-// SEGURANÇA: Proteção de acesso à página de edição
-// Este ficheiro deve ser acedido apenas por utilizadores autenticados.
-// Caso não exista sessão iniciada, o utilizador será redirecionado para o login.
-// --------------------------------------------------------------------
 require_once __DIR__ . '/../../includes/funcoes.php';
-redirect_if_not_logged(); // Inicia a sessão (se necessário) e verifica se o utilizador está autenticado.
+redirect_if_not_logged();
 
 if (!in_array($_SERVER['REQUEST_METHOD'], ['GET', 'POST'])) {
- header('Location: ' . BASE_URL . '/public/login.php');
- exit;
-} 
+    header('Location: ' . BASE_URL . '/public/login.php');
+    exit;
+}
 
-// Recolhe o ID do cliente da URL
-$idClient = $_GET['id_cliente'] ?? null;
-if (!$idClient) {
- header('Location: ' . BASE_URL . '/private/views/clientes/lista.php');
- exit;
-} 
+/* -------------------------
+OBTER ID ENCRIPTADO
+-------------------------*/
 
-// Para testar (temporário)
-echo ($idClient);
+$idClientEncrypted = $_GET['id_cliente'] ?? null;
+$idClient = aes_decrypt($idClientEncrypted);
 
+if (!$idClient || !is_numeric($idClient)) {
+    header('Location: ' . BASE_URL . '/private/views/clientes/lista.php');
+    exit;
+}
+
+
+/* -------------------------
+PROCURAR CLIENTE NA BD
+-------------------------*/
+
+try {
+
+    $ligacao = new PDO(
+        "mysql:host=" . MYSQL_HOST . ";dbname=" . MYSQL_DATABASE . ";charset=utf8",
+        MYSQL_USERNAME,
+        MYSQL_PASSWORD
+    );
+
+    $ligacao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // preparar query segura
+    $stmt = $ligacao->prepare("SELECT * FROM clientes WHERE id = :id");
+
+    $stmt->bindParam(':id', $idClient, PDO::PARAM_INT);
+
+    $stmt->execute();
+
+    $cliente = $stmt->fetch(PDO::FETCH_OBJ);
+
+    // se não encontrou cliente
+    if (!$cliente) {
+        header('Location: ' . BASE_URL . '/private/views/clientes/lista.php');
+        exit;
+    }
+
+} catch (PDOException $err) {
+
+    $erro = "Erro na ligação à base de dados.";
+    $cliente = null;
+
+}
+
+// fechar ligação
+$ligacao = null;
 ?>
+
 
 <?php include '../../includes/header.php'; ?>
 <?php include '../../includes/nav.php'; ?> 
