@@ -87,101 +87,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $erros = array_merge($erros, validar_estado_civil($estado));
     $erros = array_merge($erros, validar_sistema_saude($sistema));
     $erros = array_merge($erros, validar_profissao($profissao));
+}
+
+if (empty($cidade)) {
+    $erros[] = "O campo Cidade é obrigatório.";
+}
+
+if (empty($telefone)) {
+    $erros[] = "O campo Telefone é obrigatório.";
+} elseif (!preg_match('/^9\d{8}$/', $telefone)) {
+    $erros[] = "Telefone inválido. Deve começar por 9 e ter 9 dígitos.";
+}
+
+if (empty($email)) {
+    $erros[] = "O campo Email é obrigatório.";
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $erros[] = "Email inválido.";
+}
+
+if (empty($sexo)) {
+    $erros[] = "O campo Género é obrigatório.";
+}
+
+if (empty($dnasc)) {
+    $erros[] = "O campo Data de Nascimento é obrigatório.";
+} elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dnasc)) {
+    $erros[] = "Formato de data inválido (AAAA-MM-DD).";
+} else {
+
+    $partes = explode('-', $dnasc);
+
+    if (!checkdate((int)$partes[1], (int)$partes[2], (int)$partes[0])) {
+        $erros[] = "Data de nascimento inválida.";
     }
+}
 
-    if (empty($cidade)) {
-        $erros[] = "O campo Cidade é obrigatório.";
-    }
+if (empty($estado)) {
+    $erros[] = "Estado civil não selecionado.";
+}
 
-    if (empty($telefone)) {
-        $erros[] = "O campo Telefone é obrigatório.";
-    } elseif (!preg_match('/^9\d{8}$/', $telefone)) {
-        $erros[] = "Telefone inválido. Deve começar por 9 e ter 9 dígitos.";
-    }
+if (empty($sistema)) {
+    $erros[] = "Sistema de saúde não preenchido.";
+}
 
-    if (empty($email)) {
-        $erros[] = "O campo Email é obrigatório.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $erros[] = "Email inválido.";
-    }
-
-    if (empty($sexo)) {
-        $erros[] = "O campo Género é obrigatório.";
-    }
-
-    if (empty($dnasc)) {
-        $erros[] = "O campo Data de Nascimento é obrigatório.";
-    } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dnasc)) {
-        $erros[] = "Formato de data inválido (AAAA-MM-DD).";
-    } else {
-
-        $partes = explode('-', $dnasc);
-
-        if (!checkdate((int)$partes[1], (int)$partes[2], (int)$partes[0])) {
-            $erros[] = "Data de nascimento inválida.";
-        }
-    }
-
-    if (empty($estado)) {
-        $erros[] = "Estado civil não selecionado.";
-    }
-
-    if (empty($sistema)) {
-        $erros[] = "Sistema de saúde não preenchido.";
-    }
-
-    if (empty($profissao)) {
-        $erros[] = "Profissão é obrigatória.";
-    }
+if (empty($profissao)) {
+    $erros[] = "Profissão é obrigatória.";
+}
 
 
-    /* ---------------------------
+/* ---------------------------
     NORMALIZAR DADOS
     ----------------------------*/
 
-    $nome = ucwords(strtolower($nome));
-    $cidade = ucfirst(strtolower($cidade));
-    $email = strtolower($email);
-    $sistema = strtoupper($sistema);
-    $profissao = ucwords(strtolower($profissao));
+$nome = ucwords(strtolower($nome));
+$cidade = ucfirst(strtolower($cidade));
+$email = strtolower($email);
+$sistema = strtoupper($sistema);
+$profissao = ucwords(strtolower($profissao));
 
 
-    /* ---------------------------
+/* ---------------------------
     GUARDAR NA BASE DE DADOS
     ----------------------------*/
 
-    if (empty($erros)) {
-        try {
-            $ligacao = new PDO(
-                "mysql:host=" . MYSQL_HOST . ";dbname=" . MYSQL_DATABASE . ";charset=utf8",
-                MYSQL_USERNAME,
-                MYSQL_PASSWORD
-            );
-            $sql = "INSERT INTO clientes (
+if (empty($erros)) {
+    try {
+        $ligacao = new PDO(
+            "mysql:host=" . MYSQL_HOST . ";dbname=" . MYSQL_DATABASE . ";charset=utf8",
+            MYSQL_USERNAME,
+            MYSQL_PASSWORD
+        );
+        $sql = "INSERT INTO clientes (
  nome, sexo, data_nascimento, email, telefone,
  morada, cidade, cliente_ativo, sistema_saude
  ) VALUES (
  :nome, :sexo, :dnasc, :email, :telefone,
  :morada, :cidade, '1', :sistema
  )";
-            $stmt = $ligacao->prepare($sql);
-            $stmt->execute([
-                ':nome' => $nome,
-                ':sexo' => $sexo,
-                ':dnasc' => $dnasc,
-                ':email' => $email,
-                ':telefone' => $telefone,
-                ':morada' => $morada,
-                ':cidade' => $cidade,
-                ':sistema' => $sistema
-            ]);
-            header("Location: lista.php");
-            exit;
-        } catch (PDOException $err) {
-            $erro_sistema = "Erro ao gravar os dados: " . $err->getMessage();
-        }
-        $ligacao = null;
+        $stmt = $ligacao->prepare($sql);
+        $stmt->execute([
+            ':nome' => $nome,
+            ':sexo' => $sexo,
+            ':dnasc' => $dnasc,
+            ':email' => $email,
+            ':telefone' => $telefone,
+            ':morada' => $morada,
+            ':cidade' => $cidade,
+            ':sistema' => $sistema
+        ]);
+        header("Location: lista.php");
+        exit;
+    } catch (PDOException $err) {
+        $erro_sistema = "Erro ao gravar os dados: " . $err->getMessage();
     }
+    $ligacao = null;
+}
 ?>
 
 <?php include '../../includes/nav.php'; ?>
@@ -263,9 +263,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-md-4">
                                     <label for="texto_estcivil" class="form-label">Estado Civil</label>
                                     <select class="form-select" id="texto_estcivil" name="estaciv_cliente">
-                                        <option value="solt" <?= (($_POST['estaciv_cliente'] ?? '') == 'solt') ? 'selected' : '' ?>>Solteiro</option>
-                                        <option value="casd" <?= (($_POST['estaciv_cliente'] ?? '') == 'casd') ? 'selected' : '' ?>>Casado</option>
-                                        <option value="ufat" <?= (($_POST['estaciv_cliente'] ?? '') == 'ufat') ? 'selected' : '' ?>>União de Facto</option>
+                                        <option value="Solteiro" <?= (($_POST['estaciv_cliente'] ?? '') == 'Solteiro') ? 'selected' : '' ?>>Solteiro</option>
+                                        <option value="Casado" <?= (($_POST['estaciv_cliente'] ?? '') == 'Casado') ? 'selected' : '' ?>>Casado</option>
+                                        <option value="Divorciado" <?= (($_POST['estaciv_cliente'] ?? '') == 'Divorciado') ? 'selected' : '' ?>>Divorciado</option>
+                                        <option value="Viúvo" <?= (($_POST['estaciv_cliente'] ?? '') == 'Viúvo') ? 'selected' : '' ?>>Viúvo</option>
+                                        <option value="União de Facto" <?= (($_POST['estaciv_cliente'] ?? '') == 'União de Facto') ? 'selected' : '' ?>>União de Facto</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
